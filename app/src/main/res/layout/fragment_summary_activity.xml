@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFDB9"
+    android:id="@+id/summaryLayout"
+    tools:context=".ui.home.HomeFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+    <TextView
+        android:id="@+id/text_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="RM0"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="183dp"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="183dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="40dp"
+            android:gravity="center"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Incomes"
+                android:textSize="15dp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="190dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RM0"
+                android:textSize="25dp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="219dp"
+                android:textColor="@color/black"/>
+
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="183dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="40dp"
+        android:gravity="center"
+        tools:ignore="MissingConstraints">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expenses"
+        android:textSize="15dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="190dp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RM0"
+        android:textSize="25dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="219dp"
+        android:textColor="@color/black"/>
+
+    </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
