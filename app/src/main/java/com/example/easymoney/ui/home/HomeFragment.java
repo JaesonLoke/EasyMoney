@@ -14,10 +14,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.easymoney.DBHelper;
 import com.example.easymoney.R;
 import com.example.easymoney.RecordList;
 import com.example.easymoney.SummaryNumber;
 import com.example.easymoney.databinding.FragmentHomeBinding;
+
+import org.jetbrains.annotations.NotNull;
 
 public class HomeFragment extends Fragment {
 
@@ -45,8 +48,12 @@ public class HomeFragment extends Fragment {
                 .replace(R.id.HomeFrag2, recordList, recordList.getTag())
                 .commit();
 
+
+
         return root;
     }
+
+
 
     @Override
     public void onDestroyView() {

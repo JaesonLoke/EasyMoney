@@ -2,10 +2,12 @@ package com.example.easymoney;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,6 +40,7 @@ public class RecordList extends Fragment {
         return inflater.inflate(R.layout.fragment_record_list, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -46,12 +49,14 @@ public class RecordList extends Fragment {
         updateUI();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     void updateUI(){
         financeDB = new DBHelper(getActivity());
         fid = new ArrayList<>();
@@ -66,8 +71,9 @@ public class RecordList extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     void storeFinanceData(){
-        Cursor cursor = financeDB.readAllData();
+        Cursor cursor = financeDB.readThisMonthData();
         if(cursor.getCount() == 0){
             Toast.makeText(getActivity(), "There is no data.", Toast.LENGTH_SHORT).show();
         } else {

@@ -1,13 +1,20 @@
 package com.example.easymoney;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -58,8 +65,59 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    public String getSum() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String rv = "0";
+        Cursor res = db.rawQuery( "select (SUM(amount)) from " + TABLE_NAME, null );
+        if (res.moveToFirst()) {
+            rv = res.getString(0);
+        }
+        res.close();
+        return rv;
+    }
+
+    public String getIncome() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String rv = "0";
+        Cursor res = db.rawQuery( "select (SUM(amount)) from " + TABLE_NAME, null );
+        if (res.moveToFirst()) {
+            rv = res.getString(0);
+        }
+        res.close();
+        return rv;
+    }
+
+    public String getExpenses() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String rv = "0";
+        Cursor res = db.rawQuery( "select (SUM(amount)) from " + TABLE_NAME, null );
+        if (res.moveToFirst()) {
+            rv = res.getString(0);
+        }
+        res.close();
+        return rv;
+    }
+
     Cursor readAllData(){
         String query = "SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase sqldb = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(sqldb != null){
+            cursor = sqldb.rawQuery(query,null);
+        }
+        return cursor;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    Cursor readThisMonthData(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        String sDate = dtf.format(now);
+
+
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE date LIKE '%" + sDate + "'";
         SQLiteDatabase sqldb = this.getReadableDatabase();
 
         Cursor cursor = null;

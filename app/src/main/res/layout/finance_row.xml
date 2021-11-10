@@ -9,22 +9,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp">
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp">
-
-            <TextView
-                android:id="@+id/fid_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/category_text"
@@ -33,8 +25,7 @@
                 android:layout_marginStart="20dp"
                 android:text="TextView"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/fid_text"
-                app:layout_constraintTop_toTopOf="@+id/fid_text" />
+                tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/date_text"

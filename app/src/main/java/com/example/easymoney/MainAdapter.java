@@ -35,7 +35,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //get String from ArrayList
-        holder.fid_text.setText(String.valueOf(fid.get(position)));
         holder.category_text.setText(String.valueOf(category.get(position)));
         holder.amount_text.setText(String.valueOf(amount.get(position)));
         holder.date_text.setText(String.valueOf(date.get(position)));
@@ -48,11 +47,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView fid_text, category_text, amount_text, date_text;
+        TextView category_text, amount_text, date_text;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            fid_text = itemView.findViewById(R.id.fid_text);
             category_text = itemView.findViewById(R.id.category_text);
             amount_text = itemView.findViewById(R.id.amount_text);
             date_text = itemView.findViewById(R.id.date_text);
