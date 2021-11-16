@@ -1,5 +1,7 @@
 package com.example.easymoney;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class SummaryNumber extends Fragment {
 
 
-    TextView summary;
+    TextView summary, incomeText, expenseText;
 
     public SummaryNumber() {
         // Required empty public constructor
@@ -42,6 +44,8 @@ public class SummaryNumber extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         summary = view.findViewById(R.id.text_home);
+        incomeText = view.findViewById(R.id.text_income);
+        expenseText = view.findViewById(R.id.text_expense);
         updateUI();
     }
 
@@ -51,8 +55,34 @@ public class SummaryNumber extends Fragment {
         updateUI();
     }
 
+    @SuppressLint("ResourceAsColor")
     void updateUI(){
         DBHelper helper = new DBHelper(getActivity());
+
         summary.setText("RM" + helper.getSum());
+        incomeText.setText("RM" + helper.getIncome());
+        expenseText.setText("RM" + helper.getExpenses());
+
+        if (helper.getSum().contains("-")){
+            summary.setTextColor(Color.RED);
+            String r = helper.getSum().replaceFirst("-","");
+            summary.setText("-RM" + r);
+        }else{
+            summary.setText("RM" + helper.getSum());
+            summary.setTextColor(Color.BLACK);
+        }
+
+        if (helper.getSum() == null){
+            summary.setText("RM0");
+        }
+
+        if (helper.getIncome() == null){
+            incomeText.setText("RM0");
+        }
+
+        if (helper.getExpenses() == null){
+            expenseText.setText("RM0");
+        }
+
     }
 }

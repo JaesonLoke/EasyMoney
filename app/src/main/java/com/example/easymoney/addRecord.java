@@ -1,5 +1,7 @@
 package com.example.easymoney;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +13,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +31,8 @@ import java.util.Locale;
 public class addRecord extends AppCompatActivity {
 
     EditText category_input, amount_input, date_input;
-    Button add_button;
+    Button add_income, add_expense;
+    String amountType;
     private String current = "";
     private String ddmmyyyy = "DDMMYYYY";
     private Calendar cal = Calendar.getInstance();
@@ -37,6 +41,8 @@ public class addRecord extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         category_input = findViewById(R.id.categoryName);
         amount_input = findViewById(R.id.amount);
@@ -49,16 +55,34 @@ public class addRecord extends AppCompatActivity {
         String formattedDate = df.format(c);
         date_input.setText(formattedDate);
 
-        add_button = findViewById(R.id.addButton);
-        add_button.setOnClickListener(new View.OnClickListener() {
+        add_income = findViewById(R.id.addToIncome);
+        add_income.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DBHelper financeDB = new DBHelper(addRecord.this);
+                amountType = "income";
                 financeDB.addFinance(category_input.getText().toString().trim(),
                         Float.parseFloat(amount_input.getText().toString()),
-                        date_input.getText().toString().trim());
+                        date_input.getText().toString().trim(),
+                        amountType);
+                finish();
             }
         });
+
+        add_expense = findViewById(R.id.addToExpense);
+        add_expense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DBHelper financeDB = new DBHelper(addRecord.this);
+                amountType = "expense";
+                financeDB.addFinance(category_input.getText().toString().trim(),
+                        Float.parseFloat(amount_input.getText().toString()),
+                        date_input.getText().toString().trim(),
+                        amountType);
+                finish();
+            }
+        });
+
 
         TextWatcher tw = new TextWatcher() {
             @Override
@@ -119,5 +143,15 @@ public class addRecord extends AppCompatActivity {
         };
 
         date_input.addTextChangedListener(tw);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id==android.R.id.home) {
+            finish();
+        }
+        return false;
     }
 }

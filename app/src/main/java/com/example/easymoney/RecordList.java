@@ -29,7 +29,7 @@ public class RecordList extends Fragment {
     RecyclerView recyclerView;
 
     DBHelper financeDB;
-    ArrayList<String> fid, category, amount, date;
+    ArrayList<String> fid, category, amount, date, amountType;
     MainAdapter mAdapter;
 
 
@@ -63,10 +63,11 @@ public class RecordList extends Fragment {
         category = new ArrayList<>();
         amount = new ArrayList<>();
         date = new ArrayList<>();
+        amountType = new ArrayList<>();
 
         storeFinanceData();
 
-        mAdapter = new MainAdapter(getActivity(), fid, category, amount, date);
+        mAdapter = new MainAdapter(getActivity(), fid, category, amount, date, amountType);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -82,6 +83,7 @@ public class RecordList extends Fragment {
                 category.add(cursor.getString(1));
                 amount.add(cursor.getString(2));
                 date.add(cursor.getString(3));
+                amountType.add(cursor.getString(4));
             }
         }
     }

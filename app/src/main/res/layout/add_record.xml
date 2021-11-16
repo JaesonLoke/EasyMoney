@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/category_layout"
+    android:background="@color/grey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".addRecord">
@@ -16,6 +17,9 @@
         android:ems="10"
         android:inputType="date"
         android:hint="@string/catDate"
+        android:textColorHint="@color/lightGrey"
+        android:backgroundTint="@color/lightGrey"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/amount" />
@@ -25,6 +29,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:textColorHint="@color/lightGrey"
+        android:backgroundTint="@color/lightGrey"
+        android:textColor="@color/white"
         android:ems="10"
         android:inputType="numberDecimal"
         android:hint="@string/catAmount"
@@ -38,6 +45,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
+        android:textColorHint="@color/lightGrey"
+        android:backgroundTint="@color/lightGrey"
+        android:textColor="@color/white"
         android:ems="10"
         android:hint="@string/catName"
         android:inputType="textPersonName"
@@ -47,15 +57,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/addToIncome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="@string/add"
+        android:layout_marginTop="68dp"
+        android:backgroundTint="@color/yellow"
+        android:textColor="@color/black"
+        android:text="@string/saveIncome"
+        android:layout_marginRight="30dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.314"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryDate" />
 
+    <Button
+        android:id="@+id/addToExpense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="@string/saveExpense"
+        android:layout_marginLeft="30dp"
+        android:backgroundTint="@color/yellow"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryDate" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

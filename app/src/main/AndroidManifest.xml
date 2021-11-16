@@ -10,10 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyMoney">
         <activity
-            android:name=".wallet"
-            android:label="@string/title_activity_wallet"
-            android:theme="@style/Theme.EasyMoney.NoActionBar"></activity>
-        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.EasyMoney.NoActionBar">
@@ -24,7 +20,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".addRecord" />
-        <activity android:name=".Account" />
+        <activity android:name=".tutorialActivity"/>
+        <activity android:name=".EditRecord" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".addWallet"/>
+        <activity android:name=".EditWallet"/>
+        <activity android:name=".WalletFragment"/>
+
     </application>
 
 </manifest>

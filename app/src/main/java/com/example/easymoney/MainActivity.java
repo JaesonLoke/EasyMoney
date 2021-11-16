@@ -3,6 +3,7 @@ package com.example.easymoney;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     Toolbar toolbar;
@@ -42,12 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
 
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openAccount();
-            }
-        });
         Drawable drawable = ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_wallet);
         toolbar.setOverflowIcon(drawable);
 
@@ -59,18 +55,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
     }
 
     public void openRecord(){
@@ -78,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openAccount(){
-        Intent intent = new Intent(this, Account.class);
+    public void openWallet(){
+        Intent intent = new Intent(this, WalletFragment.class);
         startActivity(intent);
     }
 
@@ -90,6 +86,18 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                openWallet();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {

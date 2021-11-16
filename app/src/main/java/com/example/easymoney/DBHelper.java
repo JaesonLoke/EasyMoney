@@ -27,6 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_CATEGORY = "category";
     private static final String COLUMN_AMOUNT = "amount";
     private static final String COLUMN_DATE = "date";
+    private static final String COLUMN_AMOUNT_TYPE = "amountType";
 
 
     public DBHelper(@Nullable Context context) {
@@ -40,7 +41,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_CATEGORY + " TEXT, " +
                 COLUMN_AMOUNT + " NUMERIC, " +
-                COLUMN_DATE + " TEXT); ";
+                COLUMN_DATE + " TEXT, " +
+                COLUMN_AMOUNT_TYPE + " TEXT); ";
         sqldb.execSQL(query);
     }
 
@@ -50,13 +52,15 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(sqldb);
     }
 
-    void addFinance(String category, Float amount, String date){
+    void addFinance(String category, Float amount, String date , String amountType){
         SQLiteDatabase sqldb = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_CATEGORY, category);
         cv.put(COLUMN_AMOUNT, amount);
         cv.put(COLUMN_DATE, date);
+        cv.put(COLUMN_AMOUNT_TYPE, amountType);
+
         long result = sqldb.insert(TABLE_NAME, null, cv);
         if(result == -1){
             Toast.makeText(context, "Something went wrong!", Toast.LENGTH_SHORT).show();
@@ -67,35 +71,44 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public String getSum() {
-        SQLiteDatabase db = this.getReadableDatabase();
         String rv = "0";
-        Cursor res = db.rawQuery( "select (SUM(amount)) from " + TABLE_NAME, null );
-        if (res.moveToFirst()) {
-            rv = res.getString(0);
-        }
-        res.close();
+        int income = 0;
+        int expenses = 0;
+
+         income = Integer.parseInt(getIncome());
+         expenses = Integer.parseInt(getExpenses());
+
+        int sum = income - expenses;
+        rv = String.valueOf(sum);
+
         return rv;
     }
 
     public String getIncome() {
         SQLiteDatabase db = this.getReadableDatabase();
         String rv = "0";
-        Cursor res = db.rawQuery( "select (SUM(amount)) from " + TABLE_NAME, null );
+        Cursor res = db.rawQuery( "select (SUM(amount)) from " + TABLE_NAME + " WHERE amountType = 'income'", null );
         if (res.moveToFirst()) {
             rv = res.getString(0);
         }
         res.close();
+        if (rv == null){
+            rv = "0";
+        }
         return rv;
     }
 
     public String getExpenses() {
         SQLiteDatabase db = this.getReadableDatabase();
         String rv = "0";
-        Cursor res = db.rawQuery( "select (SUM(amount)) from " + TABLE_NAME, null );
+        Cursor res = db.rawQuery( "select (SUM(amount)) from " + TABLE_NAME + " WHERE amountType = 'expense'", null );
         if (res.moveToFirst()) {
             rv = res.getString(0);
         }
         res.close();
+        if (rv == null){
+            rv = "0";
+        }
         return rv;
     }
 
@@ -117,7 +130,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sDate = dtf.format(now);
 
 
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE date LIKE '%" + sDate + "'";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE date LIKE '%" + sDate + "' ORDER BY date DESC, _id DESC";
         SQLiteDatabase sqldb = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -125,6 +138,33 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor = sqldb.rawQuery(query,null);
         }
         return cursor;
+    }
+
+    void updateData(String row_id, String titleEdit, String amountEdit, String dateEdit){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_CATEGORY, titleEdit);
+        cv.put(COLUMN_AMOUNT, amountEdit);
+        cv.put(COLUMN_DATE, dateEdit);
+
+        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed to update.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Updated successfully.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    void deleteData(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
+
+        if(result == -1){
+            Toast.makeText(context, "Failed to delete.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Deleted successfully.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
